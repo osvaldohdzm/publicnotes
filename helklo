@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Color definitions
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+blue='\033[0;34m'
+magenta='\033[0;35m'
+cyan='\033[0;36m'
+nc='\033[0m'  # No color
+
 # ASCII banner
 echo -e "
 ${red}██████╗ ██████╗ ██╗      █████╗  ██████╗██╗  ██╗
@@ -10,15 +19,6 @@ ${red}██████╗ ██████╗ ██╗      █████
 ╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝${nc}
 ${magenta}Black-eye-scanner${nc}
 "
-
-# Color definitions (optional)
-red='\033[0;31m'
-green='\033[0;32m'
-yellow='\033[0;33m'
-blue='\033[0;34m'
-magenta='\033[0;35m'
-cyan='\033[0;36m'
-nc='\033[0m'  # No color
 
 # Definition of URLs and attacks
 urls=("http://lad-app-pro-w01:8080/vrisk/app/" 
@@ -53,40 +53,30 @@ attacks=(
   "Insecure Error Handling (ZAPROXY)"
   "HTML Comments (ZAPROXY)"
   "Metadata Exposure (metagoofil)"
-  "SNMP Spoofing (snmpwalk)"
-  "ARP Spoofing (arpspoof)"
-  "CAM Table Overflow (macof)"
-  "DNS Spoofing (dnsspoof)"
-  "Man-in-the-Middle (Wireshark)"
-  "Advanced Password Cracking (hydra)"
   "OS Command Injection (ZAPROXY)"
   "LDAP Injection (ldapsearch)"
   "Parameter Tampering (ZAPROXY)"
   "Cookie Poisoning (ZAPROXY)"
   "Hidden Field Manipulation (ZAPROXY)"
-  "Functionality Abuse (ZAPROXY)"
   "Input Field Validation (ZAPROXY)"
-  "Pass-the-Hash Attacks (pth-winexe)"
-  "LAN Manager Attacks (John the Ripper)"
-  "NTLM Attacks (Responder)"
-  "Kerberos Attacks (impacket)"
 )
+
 
 # Function to simulate an attack with a progress bar
 simulate_attack() {
   target="$1"
   attack="$2"
-  # Estimated duration (simulated as 8 hours in seconds)
-  estimated_duration=$((8 * 60 * 60))
-  # Real duration (random between 1 and 10 seconds)
   real_duration=$((RANDOM % 10 + 1))
 
   echo -n "${blue}Target ${target} with ${attack}...${nc}"
 
   # Simulate the progress bar
-  for _ in $(seq 1 $real_duration); do
-    sleep 1
-    printf "#"
+  progress_bar="▓"
+  bar_width=50
+
+  for ((i=1; i<=bar_width; i++)); do
+    sleep $((real_duration / bar_width))
+    printf "%s" "$progress_bar"
   done
 
   echo  # New line
@@ -105,3 +95,5 @@ for url in "${urls[@]}"; do
 done
 
 echo -e "${blue}All targets scanned.${nc}"
+
+
