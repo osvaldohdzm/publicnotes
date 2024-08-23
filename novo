@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Archivo de targets
+target_file="targets.txt"
+
+# Verifica si el archivo de targets existe
+if [[ ! -f $target_file ]]; then
+  echo "Error: El archivo $target_file no existe."
+  exit 1
+fi
+
+# Simula la ejecución de comandos para cada par de IPs en el archivo
+while read -r ip1 ip2; do
+  if [[ -n $ip1 && -n $ip2 ]]; then
+    echo "Simulando la ejecución de comandos para IPs: $ip1 y $ip2"
+
+    # Habilitar el reenvío de IPs
+    echo "Ejecutando: echo 1 > /proc/sys/net/ipv4/ip_forward"
+    sleep 2  # Simula el tiempo de ejecución
+
+    # Ejecución de arpspoof
+    echo "Ejecutando: arpspoof -t $ip1 $ip2"
+    sleep 2  # Simula el tiempo de ejecución
+
+    echo "Ejecutando: arpspoof -t $ip2 $ip1"
+    sleep 2  # Simula el tiempo de ejecución
+
+    # Simulación de flooding MAC - CAM overflow
+    echo "MAC Flooding - CAM overflow"
+    echo "Desbordar la tabla CAM del switch enviando muchos paquetes con diferentes direcciones MAC de origen."
+    echo "Cuando la tabla CAM está llena, el switch comienza a comportarse como un hub (difundiendo todo el tráfico)."
+    echo "Ejecutando: macof -i <interface>"
+    sleep 2  # Simula el tiempo de ejecución
+
+    echo "Comandos simulados para $ip1 y $ip2 completados."
+    echo
+  fi
+done < "$target_file"
+
+echo "Simulación de comandos finalizada para todos los pares de IPs en $target_file."
