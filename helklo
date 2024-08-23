@@ -22,27 +22,52 @@ nc='\033[0m'  # No color
 
 # Definition of URLs and attacks
 urls=("http://lad-app-pro-w01:8080/vrisk/app/" "http://bi1-shp-pro-w01:36280/pages/inicio.aspx")
-attacks=("SQL Injection" "XSS" "CSRF" "Path Traversal" "Insecure Error Handling" "HTML Comments" "Metadata Exposure" "SNMP Spoofing" "ARP Spoofing" "CAM Table Overflow" "DNS Spoofing" "Man-in-the-Middle" "Advanced Password Cracking" "OS Command Injection" "LDAP Injection" "Parameter Tampering" "Cookie Poisoning" "Hidden Field Manipulation" "Functionality Abuse" "Input Field Validation" "Pass-the-Hash Attacks" "LAN Manager Attacks" "NTLM Attacks" "Kerberos Attacks")
+attacks=(
+  "SQL Injection (sqlmap)"
+  "XSS (xsser)"
+  "CSRF (OWASP ZAP)"
+  "Path Traversal (ZAPROXY)"
+  "Insecure Error Handling (ZAPROXY)"
+  "HTML Comments (ZAPROXY)"
+  "Metadata Exposure (metagoofil)"
+  "SNMP Spoofing (snmpwalk)"
+  "ARP Spoofing (arpspoof)"
+  "CAM Table Overflow (macof)"
+  "DNS Spoofing (dnsspoof)"
+  "Man-in-the-Middle (Wireshark)"
+  "Advanced Password Cracking (hydra)"
+  "OS Command Injection (ZAPROXY)"
+  "LDAP Injection (ldapsearch)"
+  "Parameter Tampering (ZAPROXY)"
+  "Cookie Poisoning (ZAPROXY)"
+  "Hidden Field Manipulation (ZAPROXY)"
+  "Functionality Abuse (ZAPROXY)"
+  "Input Field Validation (ZAPROXY)"
+  "Pass-the-Hash Attacks (pth-winexe)"
+  "LAN Manager Attacks (John the Ripper)"
+  "NTLM Attacks (Responder)"
+  "Kerberos Attacks (impacket)"
+)
 
 # Function to simulate an attack with a progress bar
 simulate_attack() {
   target="$1"
   attack="$2"
-  # Estimated duration (adjust as needed)
-  estimated_duration=5
-  # Real duration (random simulation)
-  real_duration=0.50
+  # Estimated duration (simulated as 8 hours in seconds)
+  estimated_duration=$((8 * 60 * 60))
+  # Real duration (random between 1 and 10 seconds)
+  real_duration=$((RANDOM % 10 + 1))
 
   echo -n "${blue}Target ${target} with ${attack}...${nc}"
 
-  # Use tqdm to show the progress bar
+  # Simulate the progress bar
   for _ in $(seq 1 $real_duration); do
-    tqdm --desc "Target $target with $attack" --total $estimated_duration --position 0
     sleep 1
+    printf "#"
   done
 
   echo  # New line
-  echo -e "${green}Deploying security checks completed.${nc}"
+  echo -e "${green}Deploying security checks completed in ${real_duration} seconds.${nc}"
 }
 
 # Main loop to iterate over URLs and attacks
