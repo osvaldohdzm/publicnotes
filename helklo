@@ -1,1 +1,48 @@
-h9i
+#!/bin/bash
+
+# Definición de colores (opcional)
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+blue='\033[0;34m'
+magenta='\033[0;35m'
+cyan='\033[0;36m'
+nc='\033[0m'  # No color
+
+# Definición de URLs y ataques (ejemplo)
+urls=("http://lad-app-pro-w01:8080/vrisk/app/" "http://bi1-shp-pro-w01:36280/pages/inicio.aspx")
+attacks=("SQL Injection" "XSS" "CSRF")
+
+# Función para simular un ataque with barra de progreso
+simulate_attack() {
+  target="$1"
+  attack="$2"
+  # Duración estimada (ajustar según sea necesario)
+  estimated_duration=5
+  # Duración real (simulación aleatoria)
+  real_duration=0.50
+
+  echo -n "${blue}Target ${target} with ${attack}...${nc}"
+
+  # Usar tqdm para mostrar la barra de progreso
+  for _ in $(seq 1 $real_duration); do
+    tqdm --desc "Target $target with $attack" --total $estimated_duration --position 0
+    sleep 1
+  done
+
+  echo  # Salto de línea
+  echo -e "${green}Ataque simulado completado.${nc}"
+}
+
+# Bucle principal para iterar sobre las URLs y ataques
+for url in "${urls[@]}"; do
+  echo -e "${blue}Target: ${url}${nc}"
+
+  for attack in "${attacks[@]}"; do
+    simulate_attack "$url" "$attack"
+  done
+
+  echo -e "${green}Finalizado with ${url}.${nc}"
+done
+
+echo -e "${blue}Todos los targets escaneados.${nc}"
