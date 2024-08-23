@@ -21,7 +21,30 @@ cyan='\033[0;36m'
 nc='\033[0m'  # No color
 
 # Definition of URLs and attacks
-urls=("http://lad-app-pro-w01:8080/vrisk/app/" "http://bi1-shp-pro-w01:36280/pages/inicio.aspx")
+urls=("http://lad-app-pro-w01:8080/vrisk/app/" 
+"http://bi1-shp-pro-w01:36280/pages/inicio.aspx"
+"http://lad-app-pro-w01:8080/vrisk/app/"
+"http://bi1-shp-pro-w01:36280/pages/inicio.aspx"
+"http://fid-app-pro-w01/protrust/"
+"https://myshf.shf.gob.mx/scad"
+"http://ikc-app-pro-w01:4106/app/index.html#!/loginoauth"
+"http://wre-app-pro-w02/reportware5_shf/login/login"
+"http://wre-app-pro-w01/bajawaremxfovi/login.aspx"
+"http://wre-app-pro-w01/bajawaremx/login.aspx"
+"http://shffnprod1:9080/workplace/browse.jsp"
+"https://kmi-app-pro-w01/miportal/default.aspx"
+"https://abc-app-pro-w01/myabcmcorporate/loginpage.aspx"
+"https://myshf.shf.gob.mx/"
+"https://myshf.shf.gob.mx/"
+"https://myshf.shf.gob.mx/sci"
+"https://myshf.shf.gob.mx/"
+"https://sma.shf.gob.mx:449/account/login?returnurl=%2f"
+"https://myshf.shf.gob.mx/cobranza/"
+"https://myshf.shf.gob.mx/scv/login.aspx"
+"https://rh.shf.gob.mx/"
+"https://pfi-app-pro-w02:8443/dashboard/index.htm"
+"https://myshf.shf.gob.mx/sig/login.aspx"
+)
 attacks=(
   "SQL Injection (sqlmap)"
   "XSS (xsser)"
