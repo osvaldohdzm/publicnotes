@@ -1,6 +1,17 @@
 #!/bin/bash
 
-# Definición de colores (opcional)
+# ASCII banner
+echo -e "
+${red}██████╗ ██████╗ ██╗      █████╗  ██████╗██╗  ██╗
+██╔══██╗██╔═══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝
+██████╔╝██║   ██║██║     ███████║██║     █████╔╝ 
+██╔═══╝ ██║   ██║██║     ██╔══██║██║     ██╔═██╗ 
+██║     ╚██████╔╝███████╗██║  ██║╚██████╗██║  ██╗
+╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝${nc}
+${magenta}Black-eye-scanner${nc}
+"
+
+# Color definitions (optional)
 red='\033[0;31m'
 green='\033[0;32m'
 yellow='\033[0;33m'
@@ -9,32 +20,32 @@ magenta='\033[0;35m'
 cyan='\033[0;36m'
 nc='\033[0m'  # No color
 
-# Definición de URLs y ataques (ejemplo)
+# Definition of URLs and attacks
 urls=("http://lad-app-pro-w01:8080/vrisk/app/" "http://bi1-shp-pro-w01:36280/pages/inicio.aspx")
-attacks=("SQL Injection" "XSS" "CSRF")
+attacks=("SQL Injection" "XSS" "CSRF" "Path Traversal" "Insecure Error Handling" "HTML Comments" "Metadata Exposure" "SNMP Spoofing" "ARP Spoofing" "CAM Table Overflow" "DNS Spoofing" "Man-in-the-Middle" "Advanced Password Cracking" "OS Command Injection" "LDAP Injection" "Parameter Tampering" "Cookie Poisoning" "Hidden Field Manipulation" "Functionality Abuse" "Input Field Validation" "Pass-the-Hash Attacks" "LAN Manager Attacks" "NTLM Attacks" "Kerberos Attacks")
 
-# Función para simular un ataque with barra de progreso
+# Function to simulate an attack with a progress bar
 simulate_attack() {
   target="$1"
   attack="$2"
-  # Duración estimada (ajustar según sea necesario)
+  # Estimated duration (adjust as needed)
   estimated_duration=5
-  # Duración real (simulación aleatoria)
+  # Real duration (random simulation)
   real_duration=0.50
 
   echo -n "${blue}Target ${target} with ${attack}...${nc}"
 
-  # Usar tqdm para mostrar la barra de progreso
+  # Use tqdm to show the progress bar
   for _ in $(seq 1 $real_duration); do
     tqdm --desc "Target $target with $attack" --total $estimated_duration --position 0
     sleep 1
   done
 
-  echo  # Salto de línea
-  echo -e "${green}Ataque simulado completado.${nc}"
+  echo  # New line
+  echo -e "${green}Deploying security checks completed.${nc}"
 }
 
-# Bucle principal para iterar sobre las URLs y ataques
+# Main loop to iterate over URLs and attacks
 for url in "${urls[@]}"; do
   echo -e "${blue}Target: ${url}${nc}"
 
@@ -42,7 +53,7 @@ for url in "${urls[@]}"; do
     simulate_attack "$url" "$attack"
   done
 
-  echo -e "${green}Finalizado with ${url}.${nc}"
+  echo -e "${green}Finished with ${url}.${nc}"
 done
 
-echo -e "${blue}Todos los targets escaneados.${nc}"
+echo -e "${blue}All targets scanned.${nc}"
